@@ -1,0 +1,21 @@
+{
+  "name": "plot-divider",
+  "version": "1.0.0",
+  "description": "devide and conquer alhorithm",
+  "main": "index.js",
+  "author": "Viktar Belski",
+  "license": "MIT",
+  "private": false,
+  "source": "src/index.html",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "@parcel/transformer-less": "2.8.3",
+    "parcel": "^2.8.3"
+  },
+  "dependencies": {
+    "d3": "^7.8.2"
+  }
+}
