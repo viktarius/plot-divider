@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "types": ["reflect-metadata"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "jsxImportSource": "preact",
+    "lib": [
+      "dom",
+      "es5",
+      "scripthost",
+      "es2015.symbol"
+    ]
+  }
+}
