@@ -77,6 +77,17 @@ const data = { width: 1680, height: 640 };
 const drawService = container.get<IDrawService>(TYPES.DrawService);
 drawService.initSvg(data.width, data.height);
 const result = getPart(data.width, data.height);
-result.forEach( (lineData, index) => {
-    setTimeout(() => drawService.drawLine(lineData, 'steelblue'), index * 1000)
+result.forEach((lineData, index) => {
+    setTimeout(() => drawService.drawLine(lineData, "#848484"), index * 1000)
 })
+
+drawService.drawSquare({ x1: 80, y1: 80, x2: 80, y2: 560 })
+drawService.drawSquare({ x1: 160, y1: 240, x2: 80, y2: 560 })
+drawService.drawSquare({ x1: 400, y1: 320, x2: 80, y2: 560 })
+drawService.drawSquare({ x1: 0, y1: 320, x2: 80, y2: 560 }, "#4d4d4d")
+
+for (let xCoord = 0; xCoord < data.width; xCoord += 80) {
+    setTimeout(function () {
+        drawService.drawSquare({ x1: xCoord, y1: 480, x2: 80, y2: 560 }, "#c0c0c0")
+    }, xCoord)
+}

@@ -13,11 +13,9 @@ export class DrawService implements IDrawService {
     private y: ScaleLinear<number, number>;
     private lineFn: Line<[number, number]>;
 
-    constructor() {
-        console.log('draw service inited');
-    }
+    constructor() { }
 
-    public initSvg(width: number, height: number) {
+    public initSvg(width: number, height: number): void {
         const svgMargin = 20;
         const svgWidth = 1000;
         const svgHeight = 380;
@@ -36,18 +34,30 @@ export class DrawService implements IDrawService {
 
         this.svg = select('#plot-divider-visualization')
             .append('svg')
-            .attr('width', width + svgMargin + svgMargin)
-            .attr('height', height + svgMargin + svgMargin)
+            .attr('width', svgWidth + svgMargin + svgMargin)
+            .attr('height', svgHeight + svgMargin + svgMargin)
             .append('g')
             .attr('transform', 'translate(' + svgMargin + ', ' + svgMargin + ')');
     }
 
-    public drawLine(data: number[][], color: string = 'black') {
-        this.svg.append('path')
+    public drawLine(data: number[][], color: string = 'black'): void {
+        this.svg
+            .append('path')
             .attr('d', this.lineFn(data))
             .attr('fill', 'none')
             .attr('stroke', color)
             .attr('stroke-width', 1);
+    }
+
+    public drawSquare(data: { x1, y1, x2, y2 }, color: string = "#848484"): void {
+        this.svg
+            .append('rect')
+            .attr('x', () => this.x(data.x1))
+            .attr('y', () => this.y(data.y1))
+            .attr('width', () => this.x(data.x2))
+            .attr('height', () => this.y(data.y2))
+            .style("stroke", "#000000")
+            .style("fill", color);
     }
 
 }
