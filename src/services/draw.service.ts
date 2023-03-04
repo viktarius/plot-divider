@@ -15,21 +15,31 @@ export class DrawService implements IDrawService {
     private lineFn: Line<[number, number]>;
     private layerState: Record<string, boolean> = {}
 
-    constructor() {
-    }
-
     public initSvg(width: number, height: number): void {
         const svgMargin = 20;
-        const svgWidth = 1000;
-        const svgHeight = 380;
+        let svgWidth;
+        let svgHeight;
+
+        const visualizationBlock = document.getElementById('plot-divider-visualization')
+        const svgWrapperWidth = visualizationBlock.offsetWidth;
+        const svgWrapperHeight = visualizationBlock.offsetHeight;
+
+        if (width / height >= svgWrapperWidth / svgWrapperHeight) {
+            svgWidth = svgWrapperWidth;
+            svgHeight = svgWrapperHeight /  (1 + width / height - svgWrapperWidth / svgWrapperHeight);
+            console.log(svgWrapperHeight, width / height, svgWrapperWidth / svgWrapperHeight)
+        } else {
+            svgHeight = svgWrapperHeight;
+            svgWidth = svgWrapperWidth / (1 + svgWrapperWidth / svgWrapperHeight - width / height)
+        }
 
         this.x = scaleLinear()
             .domain([0, width])
-            .range([0, svgWidth]);
+            .range([0, svgWidth - svgMargin- svgMargin]);
 
         this.y = scaleLinear()
             .domain([0, height])
-            .range([svgHeight, 0]);
+            .range([svgHeight - svgMargin- svgMargin, 0]);
 
         this.lineFn = line()
             .x(([width, height]) => this.x(width))
@@ -37,8 +47,8 @@ export class DrawService implements IDrawService {
 
         this.svg = select('#plot-divider-visualization')
             .append('svg')
-            .attr('width', svgWidth + svgMargin + svgMargin)
-            .attr('height', svgHeight + svgMargin + svgMargin)
+            .attr('width', svgWidth)
+            .attr('height', svgHeight)
             .append('g')
             .attr('transform', 'translate(' + svgMargin + ', ' + svgMargin + ')');
     }
@@ -67,6 +77,7 @@ export class DrawService implements IDrawService {
         return this.svg.append('g').classed(gridName, true);
     }
 
+    // TODO: try to use context instead of string selector
     public toggleElementVisibility(element: string): void {
         const visibility = this.layerState[element] = !isNil(this.layerState[element])
             ? !this.layerState[element]
