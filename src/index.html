@@ -13,10 +13,14 @@
 </head>
 <body>
 <main>
-    <input id="plot-width" type="number" />
-    <input id="plot-height" type="number" />
+    <label for="plot-width">Width: </label>
+    <input id="plot-width" type="number" placeholder="ex. 1680"/>
+    <label for="plot-height">Height: </label>
+    <input id="plot-height" type="number" placeholder="ex. 540" />
     <button id="calculate">Calculate</button>
     <div id="plot-divider-visualization"></div>
+
+    <button id="hide-grid">Hide grid</button>
 </main>
 <script src="app.ts" type="module"></script>
 </body>

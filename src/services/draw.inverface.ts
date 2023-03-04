@@ -9,5 +9,9 @@ export interface IDrawService {
 
     drawLine(data: number[][], color?: string): void;
 
-    drawSquare({ x1, y1, x2, y2 }, color?: string): void;
+    drawSquare({ x1, y1, x2, y2 }, context: any, option: Record<any, any>): void;
+
+    drawGrid(gridName: string);
+
+    toggleElementVisibility(element: string): void;
 }
