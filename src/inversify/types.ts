@@ -1,5 +1,5 @@
-const TYPES = {
-    DrawService: Symbol.for('DrawService')
+export const TYPES = {
+    DrawService: Symbol.for('DrawService'),
+    PlotDivider: Symbol.for('PlotDivider'),
+    UserInput: Symbol.for('UserInput')
 }
-
-export default TYPES;

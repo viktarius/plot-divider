@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { select } from 'd3-selection';
 
-import { IDrawService } from "./draw.service.inverface";
+import { IDrawService } from "./draw.inverface";
 import { line, scaleLinear } from "d3";
 import { ScaleLinear } from "d3-scale";
 import { Line } from "d3-shape";
