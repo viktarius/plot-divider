@@ -51,18 +51,20 @@ export class DrawService implements IDrawService {
             .attr('height', svgHeight)
             .append('g')
             .attr('transform', 'translate(' + svgMargin + ', ' + svgMargin + ')');
+
+        this.drawBorder(width, height);
     }
 
-    public drawLine(data: number[][], color: string = 'black'): void {
-        this.svg
+    public drawLine(data: number[][], context: any = this.svg, option?: Record<any, any>): void {
+        context
             .append('path')
             .attr('d', this.lineFn(data))
             .attr('fill', 'none')
-            .attr('stroke', color)
+            .attr('stroke', option?.color || 'black')
             .attr('stroke-width', 1);
     }
 
-    public drawSquare(data: { x1, y1, x2, y2 }, context: any = this.svg, option: Record<any, any>): void {
+    public drawSquare(data: { x1, y1, x2, y2 }, context: any = this.svg, option?: Record<any, any>): void {
         context
             .append('rect')
             .attr('x', () => this.x(data.x1))
@@ -70,10 +72,10 @@ export class DrawService implements IDrawService {
             .attr('width', () => this.x(data.x2))
             .attr('height', () => this.y(data.y2))
             .style('stroke', "#000000")
-            .style('fill', option.color);
+            .style('fill', option?.color || 'black');
     }
 
-    public drawGrid(gridName: string) {
+    public createGroup(gridName: string) {
         return this.svg.append('g').classed(gridName, true);
     }
 
@@ -84,6 +86,14 @@ export class DrawService implements IDrawService {
             : false;
         this.svg.select(element).style('visibility', visibility ? 'visible' : 'hidden');
         this.layerState[element] = visibility;
+    }
+
+    private drawBorder(width: number, height: number) {
+        const context = this.createGroup('border');
+        this.drawLine([[0, 0], [width, 0]], context, { color: 'red' })
+        this.drawLine([[0, 0], [0, height]], context, { color: 'red' })
+        this.drawLine([[0, height], [width, height]], context, { color: 'red' })
+        this.drawLine([[width, 0], [width, height]], context, { color: 'red' })
     }
 
 }

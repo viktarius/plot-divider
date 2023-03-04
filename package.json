@@ -1,7 +1,7 @@
 {
   "name": "plot-divider",
   "version": "1.0.0",
-  "description": "devide and conquer alhorithm",
+  "description": "divide and conquer algorithm",
   "main": "index.js",
   "author": "Viktar Belski",
   "license": "MIT",
